@@ -1,6 +1,6 @@
 IDG PHP SDK for QuickBooks V3
 
-Version: 2.5.0
+Version: 2.6.0
 
 Requirements:  PHP 5.3 or greater
 
