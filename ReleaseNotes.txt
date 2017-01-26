@@ -1,5 +1,10 @@
 # Release notes
 
+## PHP SDK v2.6.0
+----------------------
+*  New Mechanism for Handling HTTP status codes at 3xx-5xx level. 
+*  Added check to validate OAuth settings. If settings are invalid, an error message “Oauth library is not installed in your system" is generated. 
+
 ## PHP SDK v2.5.0
 ----------------------
 * Webhooks – Added payload validation and deserialization support for Webhooks events 
