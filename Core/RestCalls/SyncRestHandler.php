@@ -27,10 +27,11 @@ class SyncRestHandler extends RestHandler
 	 *
 	 * @param ServiceContext $context The context
 	 */
-	public function SyncRestHandler($context)
+	public function SyncRestHandler($context, $logger = null)
 	{
 		parent::__construct($context);
 		$this->context = $context;
+		$this->logger = $logger;
 
 		return $this;
 	}
@@ -292,6 +293,7 @@ class SyncRestHandler extends RestHandler
       //Logging
 			list($response_code, $response_xml, $response_headers) = $this->GetOAuthResponseHeaders($oauth);
 			$this->RequestLogging->LogPlatformRequests($response_xml, $requestUri, $response_headers, FALSE);
+			$this->externalLog('error', $response_xml, $requestUri, $response_headers);
 			//Save Error on faultHandler
 			$this->faultHandler = new FaultHandler($this->context, $e);
 			//echo "Response: {$response_code} - {$response_xml} \n";
@@ -310,6 +312,19 @@ class SyncRestHandler extends RestHandler
 		return array($response_code,$response_xml);
 	}
 
+	private function externalLog($level, $body, $uri, $headers)
+	{
+		if (!method_exists($this->logger, $level)) {
+			return false;
+		}
+		$this->logger->$level(array(
+			'level' => $level,
+			'type' => $this->context->serviceType,
+			'request' => $uri,
+			'response' => $body,
+			'headers' => $headers
+		));
+	}
         /**
          * Accept anything if content type is not XML or Json
          * @param type $value

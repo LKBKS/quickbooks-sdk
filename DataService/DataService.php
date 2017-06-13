@@ -87,7 +87,7 @@ class DataService {
      *
      * @param ServiceContext $serviceContext IPP Service Context
      */
-    public function __construct($serviceContext) {
+    public function __construct($serviceContext, $logger = null) {
         if (NULL == $serviceContext) {
             throw new InvalidArgumentException('Resources.ServiceContextCannotBeNull');
         }
@@ -98,11 +98,12 @@ class DataService {
 
         //ServiceContextValidation(serviceContext);
         $this->serviceContext = $serviceContext;
+        $this->logger = $logger;
 
         $this->setupSerializers();
         $this->useMinorVersion();
 
-        $this->restHandler = new SyncRestHandler($serviceContext);
+        $this->restHandler = new SyncRestHandler($serviceContext, $this->logger);
 
         // Set the Service type to either QBO or QBD by calling a method.
         $this->serviceContext->UseDataServices();
@@ -251,7 +252,7 @@ class DataService {
           break;
         }
 
-      //$restRequestHandler = new SyncRestHandler($this->serviceContext);
+      //$restRequestHandler = new SyncRestHandler($this->serviceContext, $this->logger);
       $restRequestHandler = $this->getRestHandler();
       list($responseCode, $responseBody) = $restRequestHandler->GetResponse($requestParameters, $httpsPostBody, NULL);
       $faultHandler = $restRequestHandler->getFaultHandler();
@@ -569,7 +570,7 @@ class DataService {
         $httpsPostBody = $query;
 
         $requestParameters = $this->getPostRequestParameters($httpsUri, $httpsContentType);
-        $restRequestHandler = new SyncRestHandler($this->serviceContext);
+        $restRequestHandler = new SyncRestHandler($this->serviceContext, $this->logger);
         list($responseCode, $responseBody) = $restRequestHandler->GetResponse($requestParameters, $httpsPostBody, NULL);
         $faultHandler = $restRequestHandler->getFaultHandler();
         if(isset($faultHandler)){
@@ -619,7 +620,7 @@ class DataService {
         $httpsPostBody = "select * from $entityName startPosition $pageNumber maxResults $pageSize";
 
         $requestParameters = $this->getPostRequestParameters($httpsUri, $httpsContentType);
-        $restRequestHandler = new SyncRestHandler($this->serviceContext);
+        $restRequestHandler = new SyncRestHandler($this->serviceContext, $this->logger);
         list($responseCode, $responseBody) = $restRequestHandler->GetResponse($requestParameters, $httpsPostBody, NULL);
         $faultHandler = $restRequestHandler->getFaultHandler();
         if(isset($faultHandler)){
@@ -669,7 +670,7 @@ class DataService {
 
         // Creates request parameters
         $requestParameters = $this->getGetRequestParameters($uri, CoreConstants::CONTENTTYPE_APPLICATIONXML);
-        $restRequestHandler = new SyncRestHandler($this->serviceContext);
+        $restRequestHandler = new SyncRestHandler($this->serviceContext, $this->logger);
 
         list($responseCode, $responseBody) = $restRequestHandler->GetResponse($requestParameters, NULL, NULL);
         $faultHandler = $restRequestHandler->getFaultHandler();
@@ -911,7 +912,7 @@ class DataService {
      */
     protected function getRestHandler()
     {
-        return new SyncRestHandler($this->serviceContext);
+        return new SyncRestHandler($this->serviceContext, $this->logger);
     }
 
     /**
