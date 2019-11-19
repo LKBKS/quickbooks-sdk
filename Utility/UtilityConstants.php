@@ -1,15 +1,30 @@
 <?php
+namespace QuickBooksOnline\API\Utility;
 
 /**
  * Constants whose values do not change.
  */
 class UtilityConstants
 {
-	/**
-	 * XPath for errcode tag.
-	 * @var string ERRCODEXPATH
-	 */
-	const ERRCODEXPATH = "//errcode";
+    /**
+     * batch response has single entity
+     */
+    const Entity = 1;
+
+    /**
+     * batch response has more than one enitity.
+     */
+    const Query = 2;
+
+    /**
+     * batch response has exception.
+     */
+    const Exception = 3;
+    /**
+     * XPath for errcode tag.
+     * @var string ERRCODEXPATH
+     */
+    const ERRCODEXPATH = "//errcode";
 
     /**
      * XPath for errtext tag.
@@ -46,10 +61,9 @@ class UtilityConstants
      * @var string UDATA
      */
     const UDATA = "udata";
-	
+
      /**
      * WehbooksService Path
      */
-    const WEBHOOKSDIR = "WebhooksService";	
-
+    const WEBHOOKSDIR = "WebhooksService";
 }

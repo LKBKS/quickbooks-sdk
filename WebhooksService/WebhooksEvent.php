@@ -1,4 +1,5 @@
 <?php
+namespace QuickBooksOnline\API\WebhooksService;
 
 /**
  * POJO Class WebhooksEvent
@@ -18,7 +19,8 @@ class WebhooksEvent
      * @param $eventNotifications
      * @return $this
      */
-    public function setEventNotifications($eventNotifications){
+    public function setEventNotifications($eventNotifications)
+    {
         $this->eventNotifications = $eventNotifications;
         return $this;
     }
@@ -29,7 +31,8 @@ class WebhooksEvent
      * @return array() - eventNofications
      *
      */
-    public function getEventNotifications(){
+    public function getEventNotifications()
+    {
         return $this->eventNotifications;
     }
 }

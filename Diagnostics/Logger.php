@@ -1,24 +1,30 @@
 <?php
-
-require_once(PATH_SDK_ROOT . 'Diagnostics/TraceLevel.php');
-
+namespace QuickBooksOnline\API\Diagnostics;
 
 /**
- * This file contains an interface for Logging.
+ * Contains properties used to set the Logging mechanism.
  */
-class Logger {
+class Logger
+{
 
-	/**
-	 * Logs messages depending on the ids trace level.
-	 *
-	 * @param TraceLevel $idsTraceLevel IDS Trace Level.
-	 * @param string $messageToWrite The message to write.
-	 *
-	 */
-	public function Log($idsTraceLevel, $messageToWrite)
-	{
-		file_put_contents(PATH_SDK_ROOT . 'executionlog.txt', $messageToWrite."\n", FILE_APPEND);
-	}
+    /**
+     * The Request logging mechanism.
+     * @var RequestLog $RequestLog
+     */
+    public $RequestLog;
+
+    /**
+     * The Custom logger implementation class (currently just uses same logger as RequestLog)
+     * @var CustomLogger $CustomLogger
+     */
+    public $CustomLogger;
+
+    /**
+     * Initializes the Logger object
+     */
+    public function __construct()
+    {
+        $this->RequestLog = new LoggerBase();
+        $this->CustomLogger = new LoggerBase();
+    }
 }
-
-?>
