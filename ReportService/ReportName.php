@@ -1,5 +1,5 @@
 <?php
-
+namespace QuickBooksOnline\API\ReportService;
 
 /**
  * This class contains all the ReportName supported by the PHP SDK

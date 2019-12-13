@@ -1,4 +1,5 @@
 <?php
+namespace QuickBooksOnline\API\WebhooksService;
 
 /**
  * POJO class for EventNotification
@@ -25,7 +26,8 @@ class EventNotification
      * @param $realmID
      * @return $this
      */
-    public function setRealmId($realmID){
+    public function setRealmId($realmID)
+    {
         $this->realmId = $realmID;
         return $this;
     }
@@ -35,7 +37,8 @@ class EventNotification
      *
      * @return mixed
      */
-    public function getRealmId(){
+    public function getRealmId()
+    {
         return $this->realmId;
     }
 
@@ -45,7 +48,8 @@ class EventNotification
      * @param $dataChangeEvent
      * @return $this
      */
-    public function setDataChangeEvent($dataChangeEvent){
+    public function setDataChangeEvent($dataChangeEvent)
+    {
         $this->dataChangeEvent = $dataChangeEvent;
         return $this;
     }
@@ -56,8 +60,8 @@ class EventNotification
      *
      * @return mixed
      */
-    public function getDataChangeEvent(){
+    public function getDataChangeEvent()
+    {
         return $this->dataChangeEvent;
     }
-
 }
